@@ -15,6 +15,7 @@ allprojects {
     repositories {
         jcenter()
         google()
+        mavenCentral()
     }
 }
 
@@ -26,13 +27,13 @@ task clean(type: Delete) {
 ext {
     // Sdk and tools
     // Support library and architecture components support minSdk 14 and above.
-    minSdkVersion = 14
+    minSdkVersion = 15
     targetSdkVersion = 26
     compileSdkVersion = 26
     buildToolsVersion = '26.0.2'
 
     // App dependencies
-    supportLibraryVersion = '26.1.0'
+    supportLibraryVersion = '27.0.2'
     guavaVersion = '18.0'
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
@@ -44,6 +45,12 @@ ext {
     roomVersion = "1.0.0"
     daggerVersion = '2.11'
     dexmakerVersion = '1.2'
+    butterknifeVersion = '8.8.1'
+    mapboxVersion = '5.3.0'
+    mapboxPluginLocationLayerVersion = '0.3.0'
+    lostVersion = '3.0.4'
+    mapboxGeoJsonPluginVersion = '0.1.0'
+    timberVersion = '4.6.0'
 }
 
 
