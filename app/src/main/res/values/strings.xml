@@ -57,4 +57,14 @@
     <string name="refresh">Refresh</string>
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>
+
+
+    <string name="map">地圖</string>
+    <string name="law">法規</string>
+    <string name="fish_record">漁獲紀錄</string>
+    <string name="track">航跡</string>
+    <string name="setting">設定</string>
+    <string name="about">關於</string>
+    <string name="search_location">搜尋地點</string>
+
 </resources>
