@@ -13,5 +13,17 @@
         mapbox:mapbox_cameraZoom="1"
         mapbox:mapbox_styleUrl="mapbox://styles/mapbox/outdoors-v10" />
 
+    <TextView
+        android:id="@+id/latlon_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginBottom="@dimen/latlon_text_margin_bottom"
+        android:background="@android:drawable/screen_background_dark_transparent"
+        android:paddingEnd="@dimen/latlon_text_padding_start"
+        android:paddingStart="@dimen/latlon_text_padding_start"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/latlon_text_size" />
+
 </FrameLayout>
 
