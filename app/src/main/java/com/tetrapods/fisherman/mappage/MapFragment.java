@@ -261,6 +261,7 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
         addPolygonLayer();
         addLineLayer();
         addSymbolLayer();
+        ((MapActivity) parentActivity).showSwitchPanel();
     }
 
     private void addPolygonLayer() {

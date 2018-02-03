@@ -144,29 +144,37 @@ public class MapActivity extends DaggerAppCompatActivity
         switch (item.getItemId()) {
             case R.id.action_layer:
                 if (switchPanel.getVisibility() == View.VISIBLE) {
-                    switchPanel.animate()
-                            .alpha(0)
-                            .setDuration(300)
-                            .setListener(new AnimatorListenerAdapter() {
-                                @Override
-                                public void onAnimationEnd(Animator animation) {
-                                    switchPanel.setVisibility(View.INVISIBLE);
-                                }
-                            }).start();
+                    hideSwitchPanel();
                 } else {
-                    switchPanel.animate()
-                            .alpha(1)
-                            .setDuration(300)
-                            .setListener(new AnimatorListenerAdapter() {
-                                @Override
-                                public void onAnimationStart(Animator animation) {
-                                    switchPanel.setVisibility(View.VISIBLE);
-                                }
-                            }).start();
+                    showSwitchPanel();
                 }
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showSwitchPanel() {
+        switchPanel.animate()
+                .alpha(1)
+                .setDuration(300)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        switchPanel.setVisibility(View.VISIBLE);
+                    }
+                }).start();
+    }
+
+    public void hideSwitchPanel() {
+        switchPanel.animate()
+                .alpha(0)
+                .setDuration(300)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        switchPanel.setVisibility(View.INVISIBLE);
+                    }
+                }).start();
     }
 
     @Override
@@ -175,8 +183,9 @@ public class MapActivity extends DaggerAppCompatActivity
             case R.id.map:
                 toolbar.setTitle(R.string.map);
                 toolbar.getMenu().findItem(R.id.action_layer).setVisible(true);
-                switchPanel.setVisibility(View.VISIBLE);
-                ActivityUtils.replaceFragment(getSupportFragmentManager(), new MapFragment(),
+                switchPanel.setVisibility(View.INVISIBLE);
+                mapFragment = new MapFragment();
+                ActivityUtils.replaceFragment(getSupportFragmentManager(), mapFragment,
                         R.id.contentFrame);
                 break;
             case R.id.law:
