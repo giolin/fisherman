@@ -1,6 +1,7 @@
 package com.tetrapods.fisherman.mappage;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -406,12 +407,18 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
         PointF pointf = mapboxMap.getProjection().toScreenLocation(point);
         RectF rectF = new RectF(pointf.x - 10, pointf.y - 10, pointf.x + 10,
                 pointf.y + 10);
-        List<Feature> featureList = mapboxMap.queryRenderedFeatures(rectF,
-                GEO_JSON_MARINE_SANCTUARY_LAYER_ID);
-        for (com.mapbox.services.commons.geojson.Feature feature : featureList) {
-            final Dialog dialog = new SanctuaryDialog(parentActivity,
+        for (com.mapbox.services.commons.geojson.Feature feature
+                : mapboxMap.queryRenderedFeatures(rectF, GEO_JSON_MARINE_SANCTUARY_LAYER_ID)) {
+            Dialog dialog = new SanctuaryDialog(parentActivity,
                     feature.getStringProperty("name"));
             dialog.show();
+        }
+
+        for (com.mapbox.services.commons.geojson.Feature feature
+                : mapboxMap.queryRenderedFeatures(rectF, GEO_JSON_PORT_LAYER_ID)) {
+            new AlertDialog.Builder(parentActivity)
+                    .setMessage(feature.getStringProperty("LMName"))
+                    .show();
         }
     }
 }
