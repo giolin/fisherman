@@ -104,11 +104,17 @@ public class MapActivity extends DaggerAppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.list_navigation_menu_item:
-                // TODO Go to some page
+            case R.id.map:
                 break;
-            case R.id.statistics_navigation_menu_item:
-                // TODO Go to some page
+            case R.id.law:
+                break;
+            case R.id.record:
+                break;
+            case R.id.track:
+                break;
+            case R.id.setting:
+                break;
+            case R.id.about:
                 break;
             default:
                 break;

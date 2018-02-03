@@ -17,11 +17,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/list_navigation_menu_item"
-        android:icon="@drawable/ic_list"
-        android:title="@string/list_title" />
+      android:id="@+id/map"
+      android:icon="@drawable/ic_list"
+      android:title="@string/map" />
+
     <item
-        android:id="@+id/statistics_navigation_menu_item"
-        android:icon="@drawable/ic_statistics"
-        android:title="@string/statistics_title" />
+      android:id="@+id/law"
+      android:icon="@drawable/ic_list"
+      android:title="@string/law" />
+
+    <item
+      android:id="@+id/record"
+      android:icon="@drawable/ic_list"
+      android:title="@string/fish_record" />
+
+    <item
+      android:id="@+id/track"
+      android:icon="@drawable/ic_list"
+      android:title="@string/track" />
+
+    <item
+      android:id="@+id/setting"
+      android:icon="@drawable/ic_list"
+      android:title="@string/setting" />
+
+    <item
+      android:id="@+id/about"
+      android:icon="@drawable/ic_list"
+      android:title="@string/about" />
+
+
 </menu>

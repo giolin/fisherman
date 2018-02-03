@@ -104,6 +104,7 @@ public class TasksActivity extends DaggerAppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
+                            /*
                             case R.id.list_navigation_menu_item:
                                 // Do nothing, we're already on that screen
                                 break;
@@ -114,6 +115,7 @@ public class TasksActivity extends DaggerAppCompatActivity {
                                 break;
                             default:
                                 break;
+                             */
                         }
                         // Close the navigation drawer when an item is selected.
                         menuItem.setChecked(true);
