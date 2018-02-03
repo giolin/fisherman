@@ -173,15 +173,23 @@ public class MapActivity extends DaggerAppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.map:
-
+                toolbar.setTitle(R.string.map);
+                toolbar.getMenu().findItem(R.id.action_layer).setVisible(true);
+                switchPanel.setVisibility(View.VISIBLE);
+                ActivityUtils.replaceFragment(getSupportFragmentManager(), new MapFragment(),
+                        R.id.contentFrame);
                 break;
             case R.id.law:
                 toolbar.setTitle(R.string.law);
-                ActivityUtils.replaceFragment(getSupportFragmentManager(),mLawFragment,R.id.contentFrame);
+                toolbar.getMenu().findItem(R.id.action_layer).setVisible(false);
+                switchPanel.setVisibility(View.GONE);
+                ActivityUtils.replaceFragment(getSupportFragmentManager(), mLawFragment, R.id.contentFrame);
                 break;
             case R.id.record:
                 toolbar.setTitle(R.string.fish_record);
-                ActivityUtils.replaceFragment(getSupportFragmentManager(),mRecordFragment,R.id.contentFrame);
+                toolbar.getMenu().findItem(R.id.action_layer).setVisible(false);
+                switchPanel.setVisibility(View.GONE);
+                ActivityUtils.replaceFragment(getSupportFragmentManager(), mRecordFragment, R.id.contentFrame);
                 break;
             case R.id.track:
                 break;
