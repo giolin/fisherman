@@ -16,6 +16,12 @@
 
 <resources>
     <string name="app_name">FISHERMAN</string>
+    <string name="layer">Layer</string>
+    <string name="my_route">我的軌跡</string>
+    <string name="economy_sea">經濟海域</string>
+    <string name="marine_sanctuary">海洋保護區</string>
+    <string name="port">港口資訊</string>
+    <string name="fish_distribution">漁獲分佈</string>
     <string name="add_task">New TO-DO</string>
     <string name="edit_task">Edit TO-DO</string>
     <string name="task_marked_complete">Task marked complete</string>

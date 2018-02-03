@@ -22,5 +22,8 @@
     <dimen name="list_item_padding">8dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="switch_panel_padding">8dp</dimen>
+    <dimen name="switch_panel_top_margin">8dp</dimen>
+    <dimen name="switch_padding">16dp</dimen>
 
 </resources>
