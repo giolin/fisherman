@@ -2,6 +2,8 @@ package com.tetrapods.fisherman.mappage;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.RectF;
@@ -29,6 +31,8 @@ import com.mapbox.mapboxsdk.style.layers.Filter;
 import com.mapbox.mapboxsdk.style.layers.LineLayer;
 import com.mapbox.mapboxsdk.style.layers.Property;
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
+import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
+import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.mapbox.services.android.telemetry.location.LocationEngine;
 import com.mapbox.services.android.telemetry.location.LocationEngineListener;
@@ -61,7 +65,8 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
     private static final String GEO_JSON_ECONOMY_SEA_LAYER_ID = "GEO_JSON_ECONOMY_SEA_LAYER_ID";
     private static final String GEO_JSON_MARINE_SANCTUARY_SOURCE_ID = "GEO_JSON_MARINE_SANCTUARY_SOURCE_ID";
     private static final String GEO_JSON_MARINE_SANCTUARY_LAYER_ID = "GEO_JSON_MARINE_SANCTUARY_LAYER_ID";
-    private static final String GEO_JSON_PORT = "GEO_JSON_PORT";
+    private static final String GEO_JSON_PORT_SOURCE_ID = "GEO_JSON_PORT_SOURCE_ID";
+    private static final String GEO_JSON_PORT_LAYER_ID = "GEO_JSON_PORT_LAYER_ID";
     private static final String GEO_JSON_FISH_DISTRIBUTION = "GEO_JSON_FISH_DISTRIBUTION";
     private static final int ZOOM = 11;
 
@@ -81,6 +86,7 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
     private LineLayer myRouteLayer;
     private FillLayer economySeaLayer;
     private FillLayer marineSanctuaryLayer;
+    private SymbolLayer portsLayer;
 
     @Inject
     public MapFragment() {
@@ -112,6 +118,7 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
         createGeoJsonSource();
         addPolygonLayer();
         addLineLayer();
+        addSymbolLayer();
         enableLocationPlugin();
         getLifecycle().addObserver(locationLayerPlugin);
     }
@@ -249,14 +256,13 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
         mapboxMap.addSource(geoJsonSource);
         GeoJsonSource geoJsonMyRouteSoure = new GeoJsonSource(GEO_JSON_MY_ROUTE_SOURCE_ID,
                 loadJsonFileFromAssets("ship_route1.geojson"));
-//        List<Feature> features = geoJsonSource.getAttribution();
-//        for (Feature feature : features) {
-//            Timber.d("%s, %s, %s",
-//                    feature.getId(),
-//                    feature.getProperties(),
-//                    feature.getProperty("name"));
-//        }
         mapboxMap.addSource(geoJsonMyRouteSoure);
+        GeoJsonSource portsSource = new GeoJsonSource(GEO_JSON_PORT_SOURCE_ID,
+                loadJsonFileFromAssets("ports_taiwan.geojson"));
+        mapboxMap.addSource(portsSource);
+        Bitmap icon = BitmapFactory.decodeResource(parentActivity.getResources(),
+                R.drawable.anchor);
+        mapboxMap.addImage("anchor-image", icon);
     }
 
     private void addPolygonLayer() {
@@ -288,6 +294,12 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
                 PropertyFactory.lineColor(Color.BLACK)
         );
         mapboxMap.addLayer(myRouteLayer);
+    }
+
+    private void addSymbolLayer() {
+        portsLayer = new SymbolLayer(GEO_JSON_PORT_LAYER_ID, GEO_JSON_PORT_SOURCE_ID)
+                .withProperties(PropertyFactory.iconImage("anchor-image"));
+        mapboxMap.addLayer(portsLayer);
     }
 
     private String loadJsonFileFromAssets(String filename) {
@@ -348,6 +360,11 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
                 break;
             }
             case MapContract.PORT: {
+                if (show) {
+                    portsLayer.setProperties(PropertyFactory.visibility(Property.VISIBLE));
+                } else {
+                    portsLayer.setProperties(PropertyFactory.visibility(Property.NONE));
+                }
                 break;
             }
             case MapContract.FISH_DISTRIBUTION: {
