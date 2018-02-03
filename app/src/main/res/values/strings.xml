@@ -24,7 +24,7 @@
     <string name="fish_distribution">漁獲分佈</string>
     <string name="check_rule">看法規</string>
     <string name="back_to_map">回到地圖</string>
-    <string name="you_are_in_sanctuary">您已進入%s，此區禁止流刺網與底拖網</string>
+    <string name="you_are_in_sanctuary">您已進入%s，此區禁止底拖網</string>
     <string name="current_location">目前位置：%f%s %f%s</string>
     <string name="fish_catch_info">開始時間：%s\n結束時間：%s\n總時數：%s 小時\n漁獲量：%.2f kg\n漁獲率：%.2f kg/hr</string>
     <string name="add_task">New TO-DO</string>
