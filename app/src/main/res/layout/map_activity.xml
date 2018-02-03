@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -22,9 +21,60 @@
         <FrameLayout
             android:id="@+id/contentFrame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar" />
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/switch_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginTop="@dimen/switch_panel_top_margin"
+            android:background="@android:color/white"
+            android:gravity="end"
+            android:orientation="vertical"
+            android:padding="@dimen/switch_panel_padding">
+
+            <Switch
+                android:id="@+id/switch_my_route"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:switchPadding="@dimen/switch_padding"
+                android:text="@string/my_route" />
+
+            <Switch
+                android:id="@+id/switch_economy_sea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:switchPadding="@dimen/switch_padding"
+                android:text="@string/economy_sea" />
+
+            <Switch
+                android:id="@+id/switch_marine_sanctuary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:switchPadding="@dimen/switch_padding"
+                android:text="@string/marine_sanctuary" />
+
+            <Switch
+                android:id="@+id/switch_port"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:switchPadding="@dimen/switch_padding"
+                android:text="@string/port" />
+
+            <Switch
+                android:id="@+id/switch_fish_distribution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:switchPadding="@dimen/switch_padding"
+                android:text="@string/fish_distribution" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <!-- Navigation Drawer -->
     <android.support.design.widget.NavigationView
