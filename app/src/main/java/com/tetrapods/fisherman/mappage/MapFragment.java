@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.Mapbox;
@@ -66,6 +67,8 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
 
     @BindView(R.id.mapView)
     MapView mapView;
+    @BindView(R.id.latlon_text)
+    TextView latlonText;
 
     @Inject
     MapPresenter mapPresenter;
@@ -152,6 +155,11 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
         locationEngine.activate();
         Location lastLocation = locationEngine.getLastLocation();
         if (lastLocation != null) {
+            double lat = lastLocation.getLatitude();
+            double lon = lastLocation.getLongitude();
+            String str = getString(R.string.current_location, Math.abs(lat), lat > 0 ? "°N" : "°S",
+                    Math.abs(lon), lon > 0 ? "°E" : "°W");
+            latlonText.setText(str);
             setCameraPosition(lastLocation);
         } else {
             locationEngine.addLocationEngineListener(this);
