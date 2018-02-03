@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/sanctuary_text_padding">
+
+    <ImageView
+        android:layout_width="@dimen/sanctuary_img_size"
+        android:layout_height="@dimen/sanctuary_img_size"
+        android:src="@drawable/forbidden_flow_gill_nets" />
+
+    <TextView
+        android:id="@+id/msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/sanctuary_text_padding"
+        android:text="@string/you_are_in_sanctuary"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="@dimen/sanctuary_text_size" />
+
+    <Button
+        android:id="@+id/btn_check_rule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/check_rule" />
+
+    <Button
+        android:id="@+id/btn_back_to_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back_to_map" />
+
+</LinearLayout>

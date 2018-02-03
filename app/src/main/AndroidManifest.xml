@@ -24,7 +24,7 @@
     <application
         android:name="com.tetrapods.fisherman.FishermanApp"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
