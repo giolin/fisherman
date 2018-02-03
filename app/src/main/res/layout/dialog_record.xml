@@ -45,7 +45,7 @@
     android:maxLines="1"
     android:layout_marginLeft="10dp"
     android:textColor="@android:color/black"
-    android:textSize="20dp"/>
+    android:textSize="15dp"/>
 
   <TextView
     android:id="@+id/tv_fishCatch"
@@ -67,11 +67,10 @@
   <EditText
     android:id="@+id/et_fishCatch"
     android:layout_width="match_parent"
-    android:layout_height="20dp"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="100dp"
     android:layout_alignBottom="@+id/tv_fishCatch"
-    android:layout_below="@+id/location"
     android:layout_toRightOf="@+id/tv_fishCatch"
     android:inputType="number"
     android:singleLine="true" />
@@ -89,7 +88,7 @@
   <EditText
     android:id="@+id/et_num"
     android:layout_width="match_parent"
-    android:layout_height="20dp"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="100dp"
     android:layout_alignBottom="@+id/tv_takeTime"

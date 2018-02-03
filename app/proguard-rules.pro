@@ -6,6 +6,13 @@
 -keep class android.support.test.espresso.IdlingRegistry { *; }
 -keep class com.google.common.base.Preconditions { *; }
 -keep class android.arch.** { *; }
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+
+-dontwarn org.greenrobot.greendao.database.**
+-dontwarn rx.**
 
 # For Guava:
 -dontwarn javax.annotation.**
