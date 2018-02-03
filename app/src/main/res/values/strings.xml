@@ -72,5 +72,20 @@
     <string name="setting">設定</string>
     <string name="about">關於</string>
     <string name="search_location">搜尋地點</string>
+    <string name="start_time">起始時間</string>
+    <string name="working_location">作業地點</string>
+    <string name="catch_fish">漁獲量</string>
+    <string name="takes_time">總作業時間</string>
+    
+    <string-array name="fishCatch">
+        <item>噸</item>
+        <item>公斤</item>
+        <item>斤</item>
+    </string-array>
+
+    <string-array name="time">
+        <item>分</item>
+        <item>小時</item>
+    </string-array>
 
 </resources>
