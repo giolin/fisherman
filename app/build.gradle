@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -131,5 +132,8 @@ dependencies {
     androidTestImplementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     androidTestImplementation "com.android.support:design:$rootProject.supportLibraryVersion"
     androidTestImplementation "com.google.code.findbugs:jsr305:3.0.1"
+    compile 'org.greenrobot:greendao:3.2.2'
 
+    //compile 'com.opencsv:opencsv:3.9'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 }

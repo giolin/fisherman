@@ -2,6 +2,9 @@ package com.tetrapods.fisherman;
 
 import android.app.Application;
 import android.support.annotation.VisibleForTesting;
+import com.tetrapods.fisherman.data.fishRecord.DaoMaster;
+import com.tetrapods.fisherman.data.fishRecord.DaoSession;
+import com.tetrapods.fisherman.data.fishRecord.FishRecordDao;
 import com.tetrapods.fisherman.data.source.TasksRepository;
 import com.tetrapods.fisherman.di.DaggerAppComponent;
 import dagger.android.AndroidInjector;
@@ -17,6 +20,7 @@ import javax.inject.Inject;
  */
 public class FishermanApp extends DaggerApplication {
 
+    private static DaoSession daoSession;
     @Inject
     TasksRepository tasksRepository;
 
@@ -26,6 +30,14 @@ public class FishermanApp extends DaggerApplication {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
+
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "fish.db");
+        DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
+        daoSession = daoMaster.newSession();
+    }
+
+    public static FishRecordDao FishRecordDao(){
+        return daoSession.getFishRecordDao();
     }
 
     @Override
