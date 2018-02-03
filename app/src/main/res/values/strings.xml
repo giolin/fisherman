@@ -26,6 +26,7 @@
     <string name="back_to_map">回到地圖</string>
     <string name="you_are_in_sanctuary">您已進入%s，此區禁止流刺網與底拖網</string>
     <string name="current_location">目前位置：%f%s %f%s</string>
+    <string name="fish_catch_info">開始時間：%s\n結束時間：%s\n總時數：%s 小時\n漁獲量：%.2f kg\n漁獲率：%.2f kg/hr</string>
     <string name="add_task">New TO-DO</string>
     <string name="edit_task">Edit TO-DO</string>
     <string name="task_marked_complete">Task marked complete</string>

@@ -17,9 +17,9 @@ public interface MapContract {
     int ECONOMY_SEA = 1;
     int MARINE_SANCTUARY = 2;
     int PORT = 3;
-    int FISH_DISTRIBUTION = 4;
+    int FISH_CATCH = 4;
 
-    @IntDef({MY_ROUTE, ECONOMY_SEA, MARINE_SANCTUARY, PORT, FISH_DISTRIBUTION})
+    @IntDef({MY_ROUTE, ECONOMY_SEA, MARINE_SANCTUARY, PORT, FISH_CATCH})
     @Retention(RetentionPolicy.SOURCE)
     @interface MapLayer {}
 
