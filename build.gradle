@@ -51,9 +51,9 @@ ext {
     lostVersion = '3.0.4'
     mapboxGeoJsonPluginVersion = '0.1.0'
     timberVersion = '4.6.0'
+    rxjavaVersion = '2.1.3'
+    rxandroidVersion = '2.0.1'
 }
-
-
 
 //When there is an error in code generation you will may see
 //lots of errors due too missing generated code in your logs, we increase

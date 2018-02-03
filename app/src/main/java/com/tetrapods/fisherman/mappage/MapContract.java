@@ -1,12 +1,16 @@
 package com.tetrapods.fisherman.mappage;
 
+import android.content.Context;
 import android.support.annotation.IntDef;
 
+import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.tetrapods.fisherman.BasePresenter;
 import com.tetrapods.fisherman.BaseView;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.List;
 
 /**
  * This specifies the contract between the view and the presenter.
@@ -25,11 +29,15 @@ public interface MapContract {
 
     interface View extends BaseView<Presenter> {
 
+        void addGeoJsonSources(List<GeoJsonSource> geoJsonSources);
+
         void showMapLayer(@MapLayer int type, boolean show);
 
     }
 
     interface Presenter extends BasePresenter<View> {
+
+        void loadGeoJsonFromFile(Context context);
 
     }
 }
