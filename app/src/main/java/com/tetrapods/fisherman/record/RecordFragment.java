@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import butterknife.BindView;
 import com.tetrapods.fisherman.R;
-import com.tetrapods.fisherman.data.fishRecord.FishRecord;
 import dagger.android.support.DaggerFragment;
 import java.util.Calendar;
 import javax.inject.Inject;
