@@ -61,6 +61,10 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
     private static final String ACCESS_TOKEN = "pk.eyJ1IjoiZ2VvcmdlbGluNDIyIiwiYSI6ImNqYzdqenNwbjJjMnEyd24yZHM5MnhucHMifQ.FqZz7XTRMrHl1A9VzwtxcQ";
     private static final String GEO_JSON_MY_ROUTE_SOURCE_ID = "GEO_JSON_MY_ROUTE_SOURCE_ID";
     private static final String GEO_JSON_MY_ROUTE_LAYER_ID = "GEO_JSON_MY_ROUTE_LAYER_ID";
+    private static final String GEO_JSON_PATH1_SOURCE_ID = "GEO_JSON_PATH1_SOURCE_ID";
+    private static final String GEO_JSON_PATH1_LAYER_ID = "GEO_JSON_PATH1_LAYER_ID";
+    private static final String GEO_JSON_PATH2_SOURCE_ID = "GEO_JSON_PATH2_SOURCE_ID";
+    private static final String GEO_JSON_PATH2_LAYER_ID = "GEO_JSON_PATH2_LAYER_ID";
     private static final String GEO_JSON_ECONOMY_SEA_SOURCE_ID = "GEO_JSON_ECONOMY_SEA_SOURCE_ID";
     private static final String GEO_JSON_ECONOMY_SEA_LAYER_ID = "GEO_JSON_ECONOMY_SEA_LAYER_ID";
     private static final String GEO_JSON_MARINE_SANCTUARY_SOURCE_ID = "GEO_JSON_MARINE_SANCTUARY_SOURCE_ID";
@@ -69,6 +73,7 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
     private static final String GEO_JSON_PORT_LAYER_ID = "GEO_JSON_PORT_LAYER_ID";
     private static final String GEO_JSON_FISH_DISTRIBUTION = "GEO_JSON_FISH_DISTRIBUTION";
     private static final int ZOOM = 11;
+    private static final float LINE_WIDTH = 3f;
 
     @BindView(R.id.mapView)
     MapView mapView;
@@ -84,6 +89,8 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
     private PermissionsManager permissionsManager;
     private Activity parentActivity;
     private LineLayer myRouteLayer;
+    private LineLayer path1Layer;
+    private LineLayer path2Layer;
     private FillLayer economySeaLayer;
     private FillLayer marineSanctuaryLayer;
     private SymbolLayer portsLayer;
@@ -247,22 +254,20 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
 
     private void createGeoJsonSource() {
         // Load data from GeoJSON file in the assets folder
-        GeoJsonSource sourceMarineSanctuary = new GeoJsonSource(GEO_JSON_MARINE_SANCTUARY_SOURCE_ID,
-                loadJsonFileFromAssets("taiwan_north_east_marine_sanctuary.geojson"));
-        mapboxMap.addSource(sourceMarineSanctuary);
-        Timber.d("feature %s", sourceMarineSanctuary.querySourceFeatures(null));
-        GeoJsonSource geoJsonSource = new GeoJsonSource(GEO_JSON_ECONOMY_SEA_SOURCE_ID,
-                loadJsonFileFromAssets("data.geojson"));
-        mapboxMap.addSource(geoJsonSource);
-        GeoJsonSource geoJsonMyRouteSoure = new GeoJsonSource(GEO_JSON_MY_ROUTE_SOURCE_ID,
-                loadJsonFileFromAssets("ship_route1.geojson"));
-        mapboxMap.addSource(geoJsonMyRouteSoure);
-        GeoJsonSource portsSource = new GeoJsonSource(GEO_JSON_PORT_SOURCE_ID,
-                loadJsonFileFromAssets("ports_taiwan.geojson"));
-        mapboxMap.addSource(portsSource);
-        Bitmap icon = BitmapFactory.decodeResource(parentActivity.getResources(),
-                R.drawable.anchor);
-        mapboxMap.addImage("anchor-image", icon);
+        mapboxMap.addSource(new GeoJsonSource(GEO_JSON_MARINE_SANCTUARY_SOURCE_ID,
+                loadJsonFileFromAssets("taiwan_north_east_marine_sanctuary.geojson")));
+        mapboxMap.addSource(new GeoJsonSource(GEO_JSON_ECONOMY_SEA_SOURCE_ID,
+                loadJsonFileFromAssets("data.geojson")));
+        mapboxMap.addSource(new GeoJsonSource(GEO_JSON_MY_ROUTE_SOURCE_ID,
+                loadJsonFileFromAssets("ship_route1.geojson")));
+        mapboxMap.addSource(new GeoJsonSource(GEO_JSON_PATH1_SOURCE_ID,
+                loadJsonFileFromAssets("path1.geojson")));
+        mapboxMap.addSource(new GeoJsonSource(GEO_JSON_PATH2_SOURCE_ID,
+                loadJsonFileFromAssets("path2.geojson")));
+        mapboxMap.addSource(new GeoJsonSource(GEO_JSON_PORT_SOURCE_ID,
+                loadJsonFileFromAssets("ports_taiwan.geojson")));
+        mapboxMap.addImage("anchor-image",
+                BitmapFactory.decodeResource(parentActivity.getResources(), R.drawable.anchor));
     }
 
     private void addPolygonLayer() {
@@ -285,15 +290,30 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
     }
 
     private void addLineLayer() {
-        myRouteLayer = new LineLayer(GEO_JSON_MY_ROUTE_LAYER_ID,
-                GEO_JSON_MY_ROUTE_SOURCE_ID);
+        myRouteLayer = new LineLayer(GEO_JSON_MY_ROUTE_LAYER_ID, GEO_JSON_MY_ROUTE_SOURCE_ID);
         myRouteLayer.setProperties(
                 PropertyFactory.lineCap(Property.LINE_CAP_ROUND),
                 PropertyFactory.lineJoin(Property.LINE_JOIN_ROUND),
-                PropertyFactory.lineWidth(5f),
-                PropertyFactory.lineColor(Color.BLACK)
+                PropertyFactory.lineWidth(LINE_WIDTH),
+                PropertyFactory.lineColor(Color.GREEN)
         );
         mapboxMap.addLayer(myRouteLayer);
+        path1Layer = new LineLayer(GEO_JSON_PATH1_LAYER_ID, GEO_JSON_PATH1_SOURCE_ID);
+        path1Layer.setProperties(
+                PropertyFactory.lineCap(Property.LINE_CAP_ROUND),
+                PropertyFactory.lineJoin(Property.LINE_JOIN_ROUND),
+                PropertyFactory.lineWidth(LINE_WIDTH),
+                PropertyFactory.lineColor(Color.BLUE)
+        );
+        mapboxMap.addLayer(path1Layer);
+        path2Layer = new LineLayer(GEO_JSON_PATH2_LAYER_ID, GEO_JSON_PATH2_SOURCE_ID);
+        path2Layer.setProperties(
+                PropertyFactory.lineCap(Property.LINE_CAP_ROUND),
+                PropertyFactory.lineJoin(Property.LINE_JOIN_ROUND),
+                PropertyFactory.lineWidth(LINE_WIDTH),
+                PropertyFactory.lineColor(Color.RED)
+        );
+        mapboxMap.addLayer(path2Layer);
     }
 
     private void addSymbolLayer() {
@@ -338,8 +358,12 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
             case MapContract.MY_ROUTE: {
                 if (show) {
                     myRouteLayer.setProperties(PropertyFactory.visibility(Property.VISIBLE));
+                    path1Layer.setProperties(PropertyFactory.visibility(Property.VISIBLE));
+                    path2Layer.setProperties(PropertyFactory.visibility(Property.VISIBLE));
                 } else {
                     myRouteLayer.setProperties(PropertyFactory.visibility(Property.NONE));
+                    path1Layer.setProperties(PropertyFactory.visibility(Property.NONE));
+                    path2Layer.setProperties(PropertyFactory.visibility(Property.NONE));
                 }
                 break;
             }
