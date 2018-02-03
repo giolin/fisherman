@@ -41,6 +41,7 @@
                 android:id="@+id/switch_my_route"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:switchPadding="@dimen/switch_padding"
                 android:text="@string/my_route" />
 
@@ -48,6 +49,7 @@
                 android:id="@+id/switch_economy_sea"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:switchPadding="@dimen/switch_padding"
                 android:text="@string/economy_sea" />
 
@@ -55,6 +57,7 @@
                 android:id="@+id/switch_marine_sanctuary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:switchPadding="@dimen/switch_padding"
                 android:text="@string/marine_sanctuary" />
 
@@ -62,6 +65,7 @@
                 android:id="@+id/switch_port"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:switchPadding="@dimen/switch_padding"
                 android:text="@string/port" />
 
@@ -69,6 +73,7 @@
                 android:id="@+id/switch_fish_distribution"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:switchPadding="@dimen/switch_padding"
                 android:text="@string/fish_distribution" />
 
