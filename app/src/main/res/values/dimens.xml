@@ -26,4 +26,8 @@
     <dimen name="switch_panel_top_margin">8dp</dimen>
     <dimen name="switch_padding">16dp</dimen>
 
+    <dimen name="sanctuary_img_size">150dp</dimen>
+    <dimen name="sanctuary_text_size">20sp</dimen>
+    <dimen name="sanctuary_text_padding">8dp</dimen>
+
 </resources>

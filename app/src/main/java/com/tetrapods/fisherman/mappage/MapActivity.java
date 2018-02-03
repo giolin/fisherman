@@ -105,45 +105,25 @@ public class MapActivity extends DaggerAppCompatActivity
     }
 
     @OnCheckedChanged({R.id.switch_my_route, R.id.switch_economy_sea, R.id.switch_marine_sanctuary,
-    R.id.switch_port, R.id.switch_fish_distribution})
+            R.id.switch_port, R.id.switch_fish_distribution})
     public void onRadioButtonClicked(Switch s) {
         boolean checked = s.isChecked();
 
         switch (s.getId()) {
             case R.id.switch_my_route:
-                if (checked) {
-                    // TODO switch
-                } else {
-                    // TODO switch
-                }
+                mapFragment.showMapLayer(MapContract.MY_ROUTE, checked);
                 break;
             case R.id.switch_economy_sea:
-                if (checked) {
-                    // TODO switch
-                } else {
-                    // TODO switch
-                }
+                mapFragment.showMapLayer(MapContract.ECONOMY_SEA, checked);
                 break;
             case R.id.switch_marine_sanctuary:
-                if (checked) {
-                    // TODO switch
-                } else {
-                    // TODO switch
-                }
+                mapFragment.showMapLayer(MapContract.MARINE_SANCTUARY, checked);
                 break;
             case R.id.switch_port:
-                if (checked) {
-                    // TODO switch
-                } else {
-                    // TODO switch
-                }
+                mapFragment.showMapLayer(MapContract.PORT, checked);
                 break;
             case R.id.switch_fish_distribution:
-                if (checked) {
-                    // TODO switch
-                } else {
-                    // TODO switch
-                }
+                mapFragment.showMapLayer(MapContract.FISH_DISTRIBUTION, checked);
                 break;
         }
     }
