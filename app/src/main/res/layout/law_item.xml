@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/law_item"
+  android:orientation="horizontal"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <CheckBox
+    android:id="@+id/checkbox_law"
+    android:layout_width="wrap_content"
+    android:layout_height="100dp"
+    android:layout_weight="1"
+    android:textSize="40dp"
+    android:text="禁止流刺網" />
+
+  <ImageView
+    android:id="@+id/law_icon"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:src="@drawable/forbidden_flow_gill_nets"/>
+</LinearLayout>

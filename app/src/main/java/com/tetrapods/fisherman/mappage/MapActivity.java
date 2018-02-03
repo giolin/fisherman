@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 
 import com.tetrapods.fisherman.R;
+import com.tetrapods.fisherman.law.LawFragment;
 import com.tetrapods.fisherman.util.ActivityUtils;
 
 import javax.inject.Inject;
@@ -40,6 +41,9 @@ public class MapActivity extends DaggerAppCompatActivity
 
     @Inject
     MapFragment mapFragment;
+
+    @Inject
+    LawFragment mLawFragment;
 
     private ActionBarDrawerToggle drawerToggle;
 
@@ -188,6 +192,8 @@ public class MapActivity extends DaggerAppCompatActivity
 
                 break;
             case R.id.law:
+                toolbar.setTitle(R.string.law);
+                ActivityUtils.replaceFragment(getSupportFragmentManager(),mLawFragment,R.id.contentFrame);
                 break;
             case R.id.record:
                 break;
