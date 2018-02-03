@@ -42,8 +42,6 @@ import com.mapbox.services.android.telemetry.permissions.PermissionsManager;
 import com.tetrapods.fisherman.R;
 import com.tetrapods.fisherman.util.SanctuaryDialog;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -57,19 +55,19 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
         LocationEngineListener, OnLoadingGeoJsonListener, MapboxMap.OnMapClickListener {
 
     private static final String ACCESS_TOKEN = "pk.eyJ1IjoiZ2VvcmdlbGluNDIyIiwiYSI6ImNqYzdqenNwbjJjMnEyd24yZHM5MnhucHMifQ.FqZz7XTRMrHl1A9VzwtxcQ";
-    private static final String GEO_JSON_MY_ROUTE_SOURCE_ID = "GEO_JSON_MY_ROUTE_SOURCE_ID";
+    static final String GEO_JSON_MY_ROUTE_SOURCE_ID = "GEO_JSON_MY_ROUTE_SOURCE_ID";
     private static final String GEO_JSON_MY_ROUTE_LAYER_ID = "GEO_JSON_MY_ROUTE_LAYER_ID";
-    private static final String GEO_JSON_PATH1_SOURCE_ID = "GEO_JSON_PATH1_SOURCE_ID";
+    static final String GEO_JSON_PATH1_SOURCE_ID = "GEO_JSON_PATH1_SOURCE_ID";
     private static final String GEO_JSON_PATH1_LAYER_ID = "GEO_JSON_PATH1_LAYER_ID";
-    private static final String GEO_JSON_PATH2_SOURCE_ID = "GEO_JSON_PATH2_SOURCE_ID";
+    static final String GEO_JSON_PATH2_SOURCE_ID = "GEO_JSON_PATH2_SOURCE_ID";
     private static final String GEO_JSON_PATH2_LAYER_ID = "GEO_JSON_PATH2_LAYER_ID";
-    private static final String GEO_JSON_ECONOMY_SEA_SOURCE_ID = "GEO_JSON_ECONOMY_SEA_SOURCE_ID";
+    static final String GEO_JSON_ECONOMY_SEA_SOURCE_ID = "GEO_JSON_ECONOMY_SEA_SOURCE_ID";
     private static final String GEO_JSON_ECONOMY_SEA_LAYER_ID = "GEO_JSON_ECONOMY_SEA_LAYER_ID";
-    private static final String GEO_JSON_MARINE_SANCTUARY_SOURCE_ID = "GEO_JSON_MARINE_SANCTUARY_SOURCE_ID";
+    static final String GEO_JSON_MARINE_SANCTUARY_SOURCE_ID = "GEO_JSON_MARINE_SANCTUARY_SOURCE_ID";
     private static final String GEO_JSON_MARINE_SANCTUARY_LAYER_ID = "GEO_JSON_MARINE_SANCTUARY_LAYER_ID";
-    private static final String GEO_JSON_PORT_SOURCE_ID = "GEO_JSON_PORT_SOURCE_ID";
+    static final String GEO_JSON_PORT_SOURCE_ID = "GEO_JSON_PORT_SOURCE_ID";
     private static final String GEO_JSON_PORT_LAYER_ID = "GEO_JSON_PORT_LAYER_ID";
-    private static final String GEO_JSON_FISH_CATCH_SOURCE_ID = "GEO_JSON_FISH_CATCH_SOURCE_ID";
+    static final String GEO_JSON_FISH_CATCH_SOURCE_ID = "GEO_JSON_FISH_CATCH_SOURCE_ID";
     private static final String GEO_JSON_FISH_CATCH_LAYER_ID = "GEO_JSON_FISH_CATCH_LAYER_ID";
     private static final int ZOOM = 11;
     private static final float LINE_WIDTH = 3f;
@@ -104,6 +102,7 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         parentActivity = getActivity();
+        mapPresenter.takeView(this);
     }
 
     @Nullable
@@ -121,11 +120,9 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
+        mapPresenter.loadGeoJsonFromFile(parentActivity);
         mapboxMap.addOnMapClickListener(this);
-        createGeoJsonSource();
-        addPolygonLayer();
-        addLineLayer();
-        addSymbolLayer();
+        addImageSource();
         enableLocationPlugin();
         getLifecycle().addObserver(locationLayerPlugin);
     }
@@ -139,7 +136,6 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
             locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap, locationEngine);
             locationLayerPlugin.setLocationLayerEnabled(LocationLayerMode.TRACKING);
         } else {
-            Timber.d("PermissionsManager");
             permissionsManager = new PermissionsManager(new PermissionsListener() {
                 @Override
                 public void onExplanationNeeded(List<String> permissionsToExplain) {
@@ -148,7 +144,6 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
 
                 @Override
                 public void onPermissionResult(boolean granted) {
-                    Timber.d("onPermissionResult");
                     if (granted) {
                         enableLocationPlugin();
                     } else {
@@ -238,6 +233,7 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
     public void onDestroy() {
         super.onDestroy();
         parentActivity = null;
+        mapPresenter.dropView();
     }
 
     @Override
@@ -252,24 +248,19 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
         mapView.onLowMemory();
     }
 
-    private void createGeoJsonSource() {
-        // Load data from GeoJSON file in the assets folder
-        mapboxMap.addSource(new GeoJsonSource(GEO_JSON_MARINE_SANCTUARY_SOURCE_ID,
-                loadJsonFileFromAssets("taiwan_north_east_marine_sanctuary.geojson")));
-        mapboxMap.addSource(new GeoJsonSource(GEO_JSON_ECONOMY_SEA_SOURCE_ID,
-                loadJsonFileFromAssets("data.geojson")));
-        mapboxMap.addSource(new GeoJsonSource(GEO_JSON_MY_ROUTE_SOURCE_ID,
-                loadJsonFileFromAssets("ship_route1.geojson")));
-        mapboxMap.addSource(new GeoJsonSource(GEO_JSON_PATH1_SOURCE_ID,
-                loadJsonFileFromAssets("path1.geojson")));
-        mapboxMap.addSource(new GeoJsonSource(GEO_JSON_PATH2_SOURCE_ID,
-                loadJsonFileFromAssets("path2.geojson")));
-        mapboxMap.addSource(new GeoJsonSource(GEO_JSON_PORT_SOURCE_ID,
-                loadJsonFileFromAssets("ports_taiwan.geojson")));
+    private void addImageSource() {
         mapboxMap.addImage("anchor-image",
                 BitmapFactory.decodeResource(parentActivity.getResources(), R.drawable.anchor));
-        mapboxMap.addSource(new GeoJsonSource(GEO_JSON_FISH_CATCH_SOURCE_ID,
-                loadJsonFileFromAssets("catch_data_fake.geojson")));
+    }
+
+    @Override
+    public void addGeoJsonSources(List<GeoJsonSource> geoJsonSources) {
+        for (GeoJsonSource geoJsonSource : geoJsonSources) {
+            mapboxMap.addSource(geoJsonSource);
+        }
+        addPolygonLayer();
+        addLineLayer();
+        addSymbolLayer();
     }
 
     private void addPolygonLayer() {
@@ -277,7 +268,7 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
                 GEO_JSON_ECONOMY_SEA_SOURCE_ID);
         economySeaLayer.setProperties(
                 PropertyFactory.visibility(Property.VISIBLE),
-                PropertyFactory.fillColor(Color.RED),
+                PropertyFactory.fillColor(Color.BLUE),
                 PropertyFactory.fillOpacity(.4f));
         economySeaLayer.setFilter(Filter.eq("$type", "Polygon"));
         mapboxMap.addLayer(economySeaLayer);
@@ -326,20 +317,6 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
                 GEO_JSON_FISH_CATCH_SOURCE_ID)
                 .withProperties(PropertyFactory.iconImage("marker-15"));
         mapboxMap.addLayer(fishCatchLayer);
-    }
-
-    private String loadJsonFileFromAssets(String filename) {
-        try {
-            InputStream is = parentActivity.getAssets().open(filename);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            return new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
     }
 
     @Override
