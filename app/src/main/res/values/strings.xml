@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <string name="app_name">FISHERMAN</string>
+    <string name="app_name">討海人</string>
     <string name="layer">Layer</string>
     <string name="my_route">我的軌跡</string>
     <string name="economy_sea">經濟海域</string>

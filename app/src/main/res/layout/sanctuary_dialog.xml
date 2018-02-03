@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="@dimen/sanctuary_img_size"
         android:layout_height="@dimen/sanctuary_img_size"
-        android:src="@drawable/net1" />
+        android:src="@drawable/forbidden_flow_gill_nets" />
 
     <TextView
         android:id="@+id/msg"
