@@ -35,7 +35,8 @@
             android:background="@android:color/white"
             android:gravity="end"
             android:orientation="vertical"
-            android:padding="@dimen/switch_panel_padding">
+            android:padding="@dimen/switch_panel_padding"
+            android:visibility="invisible">
 
             <Switch
                 android:id="@+id/switch_my_route"

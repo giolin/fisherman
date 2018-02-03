@@ -1,11 +1,8 @@
 package com.tetrapods.fisherman.mappage;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 
-import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
-import com.tetrapods.fisherman.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,8 +13,6 @@ import java.util.concurrent.Callable;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
