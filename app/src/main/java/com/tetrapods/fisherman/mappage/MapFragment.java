@@ -3,7 +3,6 @@ package com.tetrapods.fisherman.mappage;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PointF;
@@ -33,7 +32,6 @@ import com.mapbox.mapboxsdk.style.layers.LineLayer;
 import com.mapbox.mapboxsdk.style.layers.Property;
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
-import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.mapbox.services.android.telemetry.location.LocationEngine;
 import com.mapbox.services.android.telemetry.location.LocationEngineListener;
@@ -41,7 +39,6 @@ import com.mapbox.services.android.telemetry.location.LocationEnginePriority;
 import com.mapbox.services.android.telemetry.location.LostLocationEngine;
 import com.mapbox.services.android.telemetry.permissions.PermissionsListener;
 import com.mapbox.services.android.telemetry.permissions.PermissionsManager;
-import com.mapbox.services.commons.geojson.Feature;
 import com.tetrapods.fisherman.R;
 import com.tetrapods.fisherman.util.SanctuaryDialog;
 
@@ -72,7 +69,8 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
     private static final String GEO_JSON_MARINE_SANCTUARY_LAYER_ID = "GEO_JSON_MARINE_SANCTUARY_LAYER_ID";
     private static final String GEO_JSON_PORT_SOURCE_ID = "GEO_JSON_PORT_SOURCE_ID";
     private static final String GEO_JSON_PORT_LAYER_ID = "GEO_JSON_PORT_LAYER_ID";
-    private static final String GEO_JSON_FISH_DISTRIBUTION = "GEO_JSON_FISH_DISTRIBUTION";
+    private static final String GEO_JSON_FISH_CATCH_SOURCE_ID = "GEO_JSON_FISH_CATCH_SOURCE_ID";
+    private static final String GEO_JSON_FISH_CATCH_LAYER_ID = "GEO_JSON_FISH_CATCH_LAYER_ID";
     private static final int ZOOM = 11;
     private static final float LINE_WIDTH = 3f;
 
@@ -94,6 +92,7 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
     private LineLayer path2Layer;
     private FillLayer economySeaLayer;
     private FillLayer marineSanctuaryLayer;
+    private SymbolLayer fishCatchLayer;
     private SymbolLayer portsLayer;
 
     @Inject
@@ -269,6 +268,8 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
                 loadJsonFileFromAssets("ports_taiwan.geojson")));
         mapboxMap.addImage("anchor-image",
                 BitmapFactory.decodeResource(parentActivity.getResources(), R.drawable.anchor));
+        mapboxMap.addSource(new GeoJsonSource(GEO_JSON_FISH_CATCH_SOURCE_ID,
+                loadJsonFileFromAssets("catch_data_fake.geojson")));
     }
 
     private void addPolygonLayer() {
@@ -321,6 +322,10 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
         portsLayer = new SymbolLayer(GEO_JSON_PORT_LAYER_ID, GEO_JSON_PORT_SOURCE_ID)
                 .withProperties(PropertyFactory.iconImage("anchor-image"));
         mapboxMap.addLayer(portsLayer);
+        fishCatchLayer = new SymbolLayer(GEO_JSON_FISH_CATCH_LAYER_ID,
+                GEO_JSON_FISH_CATCH_SOURCE_ID)
+                .withProperties(PropertyFactory.iconImage("marker-15"));
+        mapboxMap.addLayer(fishCatchLayer);
     }
 
     private String loadJsonFileFromAssets(String filename) {
@@ -392,7 +397,14 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
                 }
                 break;
             }
-            case MapContract.FISH_DISTRIBUTION: {
+            case MapContract.FISH_CATCH: {
+                if (show) {
+                    fishCatchLayer.setProperties(
+                            PropertyFactory.visibility(Property.VISIBLE));
+                } else {
+                    fishCatchLayer.setProperties(
+                            PropertyFactory.visibility(Property.NONE));
+                }
                 break;
             }
             default: {
@@ -418,6 +430,23 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
                 : mapboxMap.queryRenderedFeatures(rectF, GEO_JSON_PORT_LAYER_ID)) {
             new AlertDialog.Builder(parentActivity)
                     .setMessage(feature.getStringProperty("LMName"))
+                    .show();
+        }
+
+        for (com.mapbox.services.commons.geojson.Feature feature
+                : mapboxMap.queryRenderedFeatures(rectF, GEO_JSON_FISH_CATCH_LAYER_ID)) {
+            double catchKg = (double) feature.getNumberProperty("Catch_kg");
+            double catchRate = (double) feature.getNumberProperty("Catch_rate");
+            String str = getString(R.string.fish_catch_info,
+                    feature.getStringProperty("Start_time"),
+                    feature.getStringProperty("End_time"),
+                    feature.getStringProperty("total_time"),
+                    catchKg,
+                    catchRate
+            );
+            new AlertDialog.Builder(parentActivity)
+                    .setTitle(feature.getStringProperty("Date"))
+                    .setMessage(str)
                     .show();
         }
     }

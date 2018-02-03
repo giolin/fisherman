@@ -123,7 +123,7 @@ public class MapActivity extends DaggerAppCompatActivity
                 mapFragment.showMapLayer(MapContract.PORT, checked);
                 break;
             case R.id.switch_fish_distribution:
-                mapFragment.showMapLayer(MapContract.FISH_DISTRIBUTION, checked);
+                mapFragment.showMapLayer(MapContract.FISH_CATCH, checked);
                 break;
         }
     }
