@@ -134,6 +134,7 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
             // Create an instance of LOST location engine
             initLocationEngine();
             locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap, locationEngine);
+            locationLayerPlugin.applyStyle(R.style.CustomLocationLayer);
             locationLayerPlugin.setLocationLayerEnabled(LocationLayerMode.TRACKING);
         } else {
             permissionsManager = new PermissionsManager(new PermissionsListener() {
@@ -278,7 +279,7 @@ public class MapFragment extends DaggerFragment implements MapContract.View, OnM
         marineSanctuaryLayer.setProperties(
                 PropertyFactory.visibility(Property.VISIBLE),
                 PropertyFactory.fillColor(Color.RED),
-                PropertyFactory.fillOpacity(.4f));
+                PropertyFactory.fillOpacity(.2f));
         marineSanctuaryLayer.setFilter(Filter.eq("$type", "Polygon"));
         mapboxMap.addLayer(marineSanctuaryLayer);
     }
