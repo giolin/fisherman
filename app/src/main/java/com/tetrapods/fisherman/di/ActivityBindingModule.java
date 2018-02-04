@@ -1,5 +1,6 @@
 package com.tetrapods.fisherman.di;
 
+import com.tetrapods.fisherman.about.AboutModule;
 import com.tetrapods.fisherman.addedittask.AddEditTaskModule;
 import com.tetrapods.fisherman.addedittask.AddEditTaskActivity;
 import com.tetrapods.fisherman.law.LawModule;
@@ -26,7 +27,8 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBindingModule {
     @ActivityScoped
-    @ContributesAndroidInjector(modules = {MapModule.class, LawModule.class, RecordModule.class})
+    @ContributesAndroidInjector(modules = {MapModule.class, LawModule.class, RecordModule.class,
+        AboutModule.class})
     abstract MapActivity mapActivity();
 
     @ActivityScoped

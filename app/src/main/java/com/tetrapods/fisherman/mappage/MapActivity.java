@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 
 import com.tetrapods.fisherman.R;
+import com.tetrapods.fisherman.about.AboutFragment;
 import com.tetrapods.fisherman.law.LawFragment;
 import com.tetrapods.fisherman.record.RecordFragment;
 import com.tetrapods.fisherman.util.ActivityUtils;
@@ -48,6 +49,9 @@ public class MapActivity extends DaggerAppCompatActivity
 
     @Inject
     RecordFragment mRecordFragment;
+
+    @Inject
+    AboutFragment mAboutFragment;
 
     private ActionBarDrawerToggle drawerToggle;
 
@@ -205,6 +209,10 @@ public class MapActivity extends DaggerAppCompatActivity
             case R.id.setting:
                 break;
             case R.id.about:
+                toolbar.setTitle(R.string.about);
+                toolbar.getMenu().findItem(R.id.action_layer).setVisible(false);
+                switchPanel.setVisibility(View.GONE);
+                ActivityUtils.replaceFragment(getSupportFragmentManager(), mAboutFragment, R.id.contentFrame);
                 break;
             default:
                 break;
