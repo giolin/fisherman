@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:text="感謝您下載使用討海人應用程式（以下簡稱討海人APP），討海人APP係由2018年台北魚客松Tetrapod團隊開發設計製作完成。資料內容集結open data 與 open source軟體製作開發而成。為配合使用討海人應用程式之功能所需與提升服務品質，本應用程式將蒐集使用者GPS軌跡資料與其他相關必要資訊，回傳至相關管理單位（漁業署/海巡署），而此資料僅供自然環境監測與緊急救難之目的使用。
+經您同意而提供之其他個人資料，僅供Tetrapod團隊於其內部、依照蒐集之目的進行處理和利用、或為完成提供服務或履行合約義務之必要、或依照相關法令規定或有權主管機關之命令或要求，否則Tetrapod團隊不會將足以識別使用者身分的個人資料提供給第三人（包括境內及境外）、或移作蒐集目的以外之使用。 Tetrapod團隊會持續保管、處理及利用相關資料。"
+    android:textColor="@android:color/black"
+    android:textSize="18dp" />
+
+</LinearLayout>
