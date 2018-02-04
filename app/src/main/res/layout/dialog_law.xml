@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:layout_margin="10dp">
+
+  <TextView
+    android:id="@+id/title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:text="流刺網法"
+    android:textSize="20dp"
+    android:textColor="@android:color/black"/>
+  <TextView
+    android:id="@+id/location"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:text="新北市東北角沿海保護區"
+    android:textSize="20dp"
+    android:textColor="@android:color/black"/>
+
+  <RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+      android:id="@+id/forbiden_period"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="禁漁期："
+      android:textSize="20dp"
+      android:textColor="@android:color/black"/>
+
+    <TextView
+      android:id="@+id/period"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@+id/forbiden_period"
+      android:text="全年"
+      android:textSize="20dp"
+      android:textColor="@android:color/black"/>
+  </RelativeLayout>
+
+  <RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+      android:id="@+id/tv_type"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="保育等級:"
+      android:textColor="@android:color/black"
+      android:textSize="20dp" />
+
+    <TextView
+      android:id="@+id/type"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@+id/tv_type"
+      android:text="多功能使用區"
+      android:textColor="@android:color/black"
+      android:textSize="20dp" />
+  </RelativeLayout>
+
+  <RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+      android:id="@+id/tv_law"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="法規依據:"
+      android:textSize="20dp"
+      android:textColor="@android:color/black"/>
+
+    <TextView
+      android:id="@+id/law"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@+id/tv_law"
+      android:text="漁業法第65條第5款"
+      android:textSize="20dp"
+      android:textColor="@android:color/black"/>
+  </RelativeLayout>
+
+
+  <TextView
+    android:id="@+id/descp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="保育對象：人工魚礁、漁業資源保育區"
+    android:textColor="@android:color/black"
+    android:textSize="20dp" />
+
+</LinearLayout>
