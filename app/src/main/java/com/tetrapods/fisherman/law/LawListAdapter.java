@@ -18,6 +18,7 @@ import com.tetrapods.fisherman.law.LawListAdapter.ViewHolder;
  */
 
 public class LawListAdapter extends RecyclerView.Adapter<ViewHolder> {
+
   String[] mLaws = {"流刺網法","底拖網法","中層拖網法"};
   int[] resIcon = {R.drawable.flow_gill_net,R.drawable.bottom_trawl,R.drawable.middle_fishing};
 
